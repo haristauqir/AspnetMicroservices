@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{E281ECC2-51F5-4083-9B1A-358516A64964}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{29D8DAEE-D1EF-4601-9F32-3DE540BA595F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.API", "Services\Catalog\Catalog.API\Catalog.API.csproj", "{36320478-CB46-4B3A-9A25-974539583F7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,5 +20,23 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36320478-CB46-4B3A-9A25-974539583F7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36320478-CB46-4B3A-9A25-974539583F7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36320478-CB46-4B3A-9A25-974539583F7E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{36320478-CB46-4B3A-9A25-974539583F7E}.Debug|x64.Build.0 = Debug|Any CPU
+		{36320478-CB46-4B3A-9A25-974539583F7E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{36320478-CB46-4B3A-9A25-974539583F7E}.Debug|x86.Build.0 = Debug|Any CPU
+		{36320478-CB46-4B3A-9A25-974539583F7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36320478-CB46-4B3A-9A25-974539583F7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36320478-CB46-4B3A-9A25-974539583F7E}.Release|x64.ActiveCfg = Release|Any CPU
+		{36320478-CB46-4B3A-9A25-974539583F7E}.Release|x64.Build.0 = Release|Any CPU
+		{36320478-CB46-4B3A-9A25-974539583F7E}.Release|x86.ActiveCfg = Release|Any CPU
+		{36320478-CB46-4B3A-9A25-974539583F7E}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{29D8DAEE-D1EF-4601-9F32-3DE540BA595F} = {E281ECC2-51F5-4083-9B1A-358516A64964}
+		{36320478-CB46-4B3A-9A25-974539583F7E} = {29D8DAEE-D1EF-4601-9F32-3DE540BA595F}
 	EndGlobalSection
 EndGlobal
