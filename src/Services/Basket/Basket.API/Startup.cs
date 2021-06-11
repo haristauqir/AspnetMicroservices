@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Basket.API.Extensions;
+using Basket.API.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,15 +27,19 @@ namespace Basket.API
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
-    {
-      
+    { 
       services.AddControllers().AddNewtonsoftJson(opt =>
       {
         opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
       })
       .Services
+      .AddCustomOptions(Configuration)
       .AddCustomMVC(Configuration)
-      .AddSwagger(Configuration);
+      .AddSwagger(Configuration)
+      .AddRedisCache(Configuration);
+
+      services.AddScoped<IBasketRepository, BasketRepository>();
+      
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,41 +66,6 @@ namespace Basket.API
       {
         endpoints.MapControllers();
       });
-    }
-  }
-
-  public static class CustomExtensionMethods
-  {
-
-    public static IServiceCollection AddCustomMVC(this IServiceCollection services, IConfiguration configuration)
-    {
-      services.AddCors(options =>
-      {
-        options.AddPolicy("CorsPolicy",
-                  builder => builder
-                  .SetIsOriginAllowed((host) => true)
-                  .AllowAnyMethod()
-                  .AllowAnyHeader()
-                  .AllowCredentials());
-      });
-
-      return services;
-    }
-
-    public static IServiceCollection AddSwagger(this IServiceCollection services, IConfiguration configuration)
-    {
-      services.AddSwaggerGen(options =>
-      {
-        options.SwaggerDoc("v1", new OpenApiInfo
-        {
-          Title = "Basket.API",
-          Version = "v1",
-          Description = "The Basket Microservice"
-        });
-      });
-
-      return services;
-
     }
   }
 }
