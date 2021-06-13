@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Discount.API.Extensions;
+using Discount.API.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +34,8 @@ namespace Discount.API
         .Services
         .AddCustomMVC(Configuration)
         .AddSwagger(Configuration);
+
+        services.AddScoped<IDiscountRepository, DiscountRepository>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
