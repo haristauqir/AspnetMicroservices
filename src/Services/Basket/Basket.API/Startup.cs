@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Basket.API.Extensions;
+using Basket.API.GrpcServices;
 using Basket.API.Repositories;
+using Discount.Grpc.Protos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using AutoMapper;
 
 namespace Basket.API
 {
@@ -39,6 +42,15 @@ namespace Basket.API
       .AddRedisCache(Configuration);
 
       services.AddScoped<IBasketRepository, BasketRepository>();
+      services.AddAutoMapper(typeof(Startup));
+  
+      // This switch must be set before creating the GrpcChannel/HttpClient.
+      AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
+      // Grpc Configuration
+      services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>
+                  (o => o.Address = new Uri(Configuration["GrpcSettings:DiscountUrl"]));
+      services.AddScoped<DiscountGrpcService>();
       
     }
 
@@ -49,8 +61,6 @@ namespace Basket.API
       {
         app.UseDeveloperExceptionPage();
       }
-
-      //app.UseHttpsRedirection();
 
       app.UseRouting();
 
