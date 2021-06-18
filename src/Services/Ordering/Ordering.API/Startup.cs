@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Ordering.API.Extensions;
+using Ordering.Application;
 
 namespace Ordering.API
 {
@@ -33,6 +34,9 @@ namespace Ordering.API
             .Services
             .AddCustomMVC(Configuration)
             .AddSwagger(Configuration);
+
+            services.AddApplicationServices();
+            //services.AddInfrastructureServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
