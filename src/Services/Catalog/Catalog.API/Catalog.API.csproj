@@ -9,7 +9,7 @@
     <PackageReference Include="MongoDB.Driver" Version="2.12.4"/>
   </ItemGroup>
 
-    <ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\Common.Logging\Common.Logging.csproj" />
   </ItemGroup>
   

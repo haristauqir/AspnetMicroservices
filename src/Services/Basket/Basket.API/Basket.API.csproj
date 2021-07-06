@@ -7,6 +7,7 @@
       <Link>Protos\discount.proto</Link>
     </Protobuf>
   </ItemGroup>
+  
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3"/>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0"/>
@@ -19,7 +20,9 @@
     <PackageReference Include="MassTransit.RabbitMQ" Version="7.2.0"/>
     <PackageReference Include="MassTransit.AspNetCore" Version="7.2.0"/>
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="../../../BuildingBlocks/EventBus.Messages/EventBus.Messages.csproj"/>
+    <ProjectReference Include="../../../BuildingBlocks/Common.Logging/Common.Logging.csproj" />
   </ItemGroup>
 </Project>

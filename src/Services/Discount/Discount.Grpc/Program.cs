@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Discount.Grpc.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Common.Logging;
+using Serilog;
 
 namespace Discount.Grpc
 {
@@ -22,6 +24,7 @@ namespace Discount.Grpc
         // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .UseSerilog(SeriLogger.Configure)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

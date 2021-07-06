@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Common.Logging;
+using Serilog;
 
 namespace Basket.API
 {
@@ -19,6 +21,7 @@ namespace Basket.API
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
+            .UseSerilog(SeriLogger.Configure)
             .ConfigureWebHostDefaults(webBuilder =>
             {
               /*webBuilder.ConfigureKestrel(options =>
