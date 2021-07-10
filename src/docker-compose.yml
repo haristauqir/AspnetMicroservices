@@ -77,7 +77,7 @@ services:
   kibana:
     image: docker.elastic.co/kibana/kibana:7.9.2
       
-  webstatus:
+  webstatus: 
     image: ${DOCKER_REGISTRY-}webstatus
     build:
       context: .
