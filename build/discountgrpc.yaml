@@ -23,10 +23,19 @@ spec:
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development
+            - name: Kestrel__EndpointDefaults__Protocols
+              value: "Http2"
+            - name: DOTNET_SYSTEM_NET_HTTP_SOCKETSHTTPHANDLER_HTTP2UNENCRYPTEDSUPPORT
+              value: "true"
             - name: DatabaseSettings__ConnectionString
               valueFrom:
                   configMapKeyRef:
                     name: discountdb-configmap
+                    key: connection_string
+            - name: ElasticConfiguration__Uri
+              valueFrom:
+                  configMapKeyRef:
+                    name: elasticsearch-configmap
                     key: connection_string
           resources:
             requests:
@@ -48,4 +57,4 @@ spec:
     - protocol: TCP
       port: 8006
       targetPort: 80
-      nodePort: 31006
+      nodePort: 31012

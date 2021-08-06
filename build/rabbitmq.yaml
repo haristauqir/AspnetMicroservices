@@ -20,6 +20,12 @@ spec:
           ports:
             - containerPort: 15672
           resources:
+            requests:
+              memory: "64Mi"
+              cpu: "200m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           env:                
             - name: restart
               value: always   

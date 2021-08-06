@@ -23,6 +23,8 @@ spec:
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development
+            - name: DOTNET_SYSTEM_NET_HTTP_SOCKETSHTTPHANDLER_HTTP2UNENCRYPTEDSUPPORT
+              value: "true"
             - name: CacheSettings__ConnectionString
               valueFrom:
                   configMapKeyRef:
@@ -33,6 +35,11 @@ spec:
                   configMapKeyRef:
                     name: basketdb-configmap
                     key: discountgrpc_connection_string
+            - name: EventBusSettings__HostAddress
+              valueFrom:
+                  configMapKeyRef:
+                    name: orderingdb-configmap
+                    key: rabbitmq_connection_string
           resources:
             requests:
               memory: "64Mi"
