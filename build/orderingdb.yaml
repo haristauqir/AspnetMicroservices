@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orderingdb-deployment
+  labels:
+    app: orderingdb
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: orderingdb
+  template:
+    metadata:
+      labels:
+        app: orderingdb
+    spec:
+      containers:
+        - name: orderingdb
+          image: mcr.microsoft.com/mssql/server:2017-latest
+          ports:
+            - containerPort: 1433
+          resources:
+          env:
+            - name: SA_PASSWORD
+              value: "SwN12345678"
+            - name: ACCEPT_EULA
+              value: "Y"                  
+            - name: restart
+              value: always   
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orderingdb-service
+spec:
+  type: NodePort
+  selector:
+    app: orderingdb
+  ports:
+    - protocol: TCP
+      port: 1433
+      targetPort: 1433
+      nodePort: 31008

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: orderingdb-configmap
+data:
+  connection_string: Server=orderingdb-service,1433;Database=orderingdb;User Id=sa;Password=SwN12345678
+  rabbitmq_connection_string: amqp://guest:guest@rabbitmq-service:15672

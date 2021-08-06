@@ -1,38 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: discountapi-deployment
+  name: orderingapi-deployment
   labels:
-    app: discountapi
+    app: orderingapi
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: discountapi
+      app: orderingapi
   template:
     metadata:
       labels:
-        app: discountapi
+        app: orderingapi
     spec:
       containers:
-        - name: discountapi
-          image: discountapi:latest
+        - name: orderingapi
+          image: orderingapi:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development
-            - name: DatabaseSettings__ConnectionString
+            - name: ConnectionStrings__OrderingConnectionString
               valueFrom:
                   configMapKeyRef:
-                    name: discountdb-configmap
+                    name: orderingdb-configmap
                     key: connection_string
-            - name: ElasticConfiguration__Uri
+            - name: EventBusSettings__HostAddress
               valueFrom:
                   configMapKeyRef:
-                    name: elasticsearch-configmap
-                    key: connection_string
+                    name: orderingdb-configmap
+                    key: rabbitmq_connection_string
           resources:
             requests:
               memory: "64Mi"
@@ -44,13 +44,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: discountapi-service
+  name: orderingapi-service
 spec:
   type: NodePort
   selector:
-    app: discountapi
+    app: orderingapi
   ports:
     - protocol: TCP
-      port: 8003
+      port: 8007
       targetPort: 80
-      nodePort: 31004
+      nodePort: 31007

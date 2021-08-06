@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portainer-deployment
+  labels:
+    app: portainer
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: portainer
+  template:
+    metadata:
+      labels:
+        app: portainer
+    spec:
+      containers:
+        - name: portainer
+          image: portainer/portainer-ce
+          ports:
+            - containerPort: 9000
+          resources:
+          env:  
+            - name: restart
+              value: always   
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portainer-service
+spec:
+  type: NodePort
+  selector:
+    app: portainer
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
+      nodePort: 31010

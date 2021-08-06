@@ -20,23 +20,12 @@ spec:
           ports:
             - containerPort: 9200
           resources:
-            requests:
-              memory: "64Mi"
-              cpu: "250m"
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
           env:
           - name: ES_JAVA_OPTS
             valueFrom:
                 configMapKeyRef:
                     name: elasticsearch-configmap
                     key: ES_JAVA_OPTS
-          - name: DISCOVERY.TYPE
-            valueFrom:
-                configMapKeyRef:
-                    name: elasticsearch-configmap
-                    key: DISCOVERY.TYPE
 ---
 apiVersion: v1
 kind: Service

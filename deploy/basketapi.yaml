@@ -1,38 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: discountapi-deployment
+  name: basketapi-deployment
   labels:
-    app: discountapi
+    app: basketapi
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: discountapi
+      app: basketapi
   template:
     metadata:
       labels:
-        app: discountapi
+        app: basketapi
     spec:
       containers:
-        - name: discountapi
-          image: discountapi:latest
+        - name: basketapi
+          image: basketapi:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development
-            - name: DatabaseSettings__ConnectionString
+            - name: CacheSettings__ConnectionString
               valueFrom:
                   configMapKeyRef:
-                    name: discountdb-configmap
+                    name: basketdb-configmap
                     key: connection_string
-            - name: ElasticConfiguration__Uri
+            - name: GrpcSettings__DiscountUrl
               valueFrom:
                   configMapKeyRef:
-                    name: elasticsearch-configmap
-                    key: connection_string
+                    name: basketdb-configmap
+                    key: discountgrpc_connection_string
           resources:
             requests:
               memory: "64Mi"
@@ -44,13 +44,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: discountapi-service
+  name: basketapi-service
 spec:
   type: NodePort
   selector:
-    app: discountapi
+    app: basketapi
   ports:
     - protocol: TCP
-      port: 8003
+      port: 8001
       targetPort: 80
-      nodePort: 31004
+      nodePort: 31001

@@ -4,7 +4,9 @@ metadata:
   name: elasticsearch-configmap
 data:
   elasticsearch.yml: |
+    discovery.zen.ping.unicast.hosts: elasticsearch-cluster
+    discovery.zen.minimum_master_nodes: 1
     xpack.security.enabled: false
-    xpack.monitoring.enabled: true
+    xpack.monitoring.enabled: false
   ES_JAVA_OPTS: -Xms512m -Xmx512m
-  DISCOVERY.TYPE: single-node
+  connection_string: http://elasticsearch-service:9200
